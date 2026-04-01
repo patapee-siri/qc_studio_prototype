@@ -18,6 +18,10 @@ plotly>=5.22.0
 # ── Image encoding ────────────────────────────────────────────────────────────
 Pillow>=10.3.0
 
+# ── SVG rasterisation (for 2D slice stacking with SVG input) ─────────────────
+svglib>=1.5.1
+reportlab>=4.1.0
+
 # ── HTTP ─────────────────────────────────────────────────────────────────────
 requests>=2.31.0
 

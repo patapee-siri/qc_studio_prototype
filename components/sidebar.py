@@ -19,10 +19,11 @@ def render_sidebar() -> dict[str, Any]:
     Returns
     -------
     dict with keys:
-        - ``mri``        : UploadedFile | None  — NIfTI (.nii / .nii.gz)
-        - ``svgs``       : list[UploadedFile]   — SVG pipeline outputs
-        - ``iqm``        : UploadedFile | None  — IQM TSV from MRIQC
-        - ``subject_id`` : str                  — Subject identifier label
+        - ``mri``         : UploadedFile | None  — NIfTI (.nii / .nii.gz)
+        - ``svgs``        : list[UploadedFile]   — SVG pipeline outputs
+        - ``iqm``         : UploadedFile | None  — IQM TSV from MRIQC
+        - ``subject_id``  : str                  — Subject identifier label
+        - ``slice_files`` : list[UploadedFile]   — 2D slices (PNG/JPG/SVG) for 3D reconstruction
     """
     with st.sidebar:
         # ── Branding ─────────────────────────────────────────────────────
@@ -72,6 +73,23 @@ def render_sidebar() -> dict[str, Any]:
 
         st.divider()
 
+        # ── 2D slice uploads ──────────────────────────────────────────────
+        st.markdown("**2D Slices (PNG / JPG / SVG)**")
+        slice_files = st.file_uploader(
+            "Upload 2D slices",
+            type=["png", "jpg", "jpeg", "svg"],
+            accept_multiple_files=True,
+            label_visibility="collapsed",
+            help=(
+                "Upload multiple 2D images (one per slice) to reconstruct "
+                "a 3D NIfTI volume. Stacking controls appear in the NiiVue panel."
+            ),
+        )
+        if slice_files:
+            st.caption(f"🖼 {len(slice_files)} slice file(s) loaded")
+
+        st.divider()
+
         # ── IQM TSV ───────────────────────────────────────────────────────
         st.markdown("**Image Quality Metrics (TSV)**")
         iqm_file = st.file_uploader(
@@ -101,4 +119,5 @@ def render_sidebar() -> dict[str, Any]:
         "svgs": svg_files or [],
         "iqm": iqm_file,
         "subject_id": subject_id,
+        "slice_files": slice_files or [],
     }

@@ -218,10 +218,11 @@ st.markdown(
 # ── Sidebar: file upload + controls ───────────────────────────────────────────
 uploaded = render_sidebar()
 
-mri_file   = uploaded.get("mri")
-svg_files  = uploaded.get("svgs", [])
-iqm_file   = uploaded.get("iqm")
-subject_id = uploaded.get("subject_id", "sub-unknown")
+mri_file    = uploaded.get("mri")
+svg_files   = uploaded.get("svgs", [])
+iqm_file    = uploaded.get("iqm")
+subject_id  = uploaded.get("subject_id", "sub-unknown")
+slice_files = uploaded.get("slice_files", [])
 
 # ── Main tabs ─────────────────────────────────────────────────────────────────
 tab_viewer, tab_svg, tab_iqm, tab_ai, tab_export = st.tabs(
@@ -229,7 +230,7 @@ tab_viewer, tab_svg, tab_iqm, tab_ai, tab_export = st.tabs(
 )
 
 with tab_viewer:
-    render_niivue_panel(mri_file)
+    render_niivue_panel(mri_file, slice_files)
 
 with tab_svg:
     render_svg_panel(svg_files)

@@ -30,6 +30,9 @@ def init_session_state() -> None:
         "iqm_df": None,
         # Flag: whether MedGemma model is loaded
         "medgemma_ready": False,
+        # Reconstructed NIfTI bytes from 2D slice stacking
+        "reconstructed_nifti_bytes": None,
+        "reconstructed_nifti_name": "reconstructed.nii",
     }
 
     for key, default_value in defaults.items():
